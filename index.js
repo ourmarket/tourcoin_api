@@ -42,7 +42,7 @@ connection();
 // -------------Rutas-----------
 app.use("/api/auth", authRoutes);
 app.use("/api/locks", apiLimiter, lockRoutes);
-app.use("/api/alliances", apiLimiter, allianceRoutes);
+app.use("/api/alliances", /* apiLimiter, */ allianceRoutes);
 app.use("/api/images", apiLimiter, imagesRoutes);
 
 // Ruta para manejar errores 404

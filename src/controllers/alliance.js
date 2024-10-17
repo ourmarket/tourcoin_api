@@ -82,7 +82,7 @@ export const getAlliances = async (req, res) => {
 // Obtener una alianza por ID
 export const getAllianceById = async (req, res) => {
   try {
-    const alliance = await Alliance.findById(req.params.id);
+    const alliance = await Alliance.findOne({ allianceId: req.params.id });
     if (!alliance) {
       return res.status(404).json({ message: "Alianza no encontrada" });
     }
