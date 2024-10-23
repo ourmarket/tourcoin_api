@@ -71,9 +71,26 @@ export const createAlliance = async (req, res) => {
 
 // Obtener todas las alianzas
 export const getAlliances = async (req, res) => {
+  const { category } = req.query;
   try {
-    const alliances = await Alliance.find();
-    res.status(200).json(alliances);
+    if (category === "all") {
+      const alliances = await Alliance.find();
+      return res.status(200).json(alliances);
+    }
+    if (category !== "all") {
+      const alliances = await Alliance.find({ category: category });
+      return res.status(200).json(alliances);
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// Obtener todas las alianzas
+export const getAlliancesOutstanding = async (req, res) => {
+  const { category } = req.query;
+  try {
+    const alliances = await Alliance.find({ outstanding: true });
+    return res.status(200).json(alliances);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
