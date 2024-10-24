@@ -146,3 +146,37 @@ export const deleteAlliance = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const searchAlliances = async (req, res) => {
+  try {
+    // Obtén los parámetros del request
+    const { locale, query, limit } = req.query;
+
+    // Verifica si el idioma es válido
+    const validLocales = ["es", "en", "pt"];
+    if (!validLocales.includes(locale)) {
+      return res.status(400).json({ message: "Idioma no soportado" });
+    }
+
+    // Construye el filtro de búsqueda
+    const searchRegex = new RegExp(query, "i"); // 'i' para que sea case-insensitive
+    const filter = {
+      $or: [
+        { [`localization.${locale}.title`]: searchRegex },
+        { [`localization.${locale}.sub_title`]: searchRegex },
+        { country: searchRegex },
+        { province: searchRegex },
+        { city: searchRegex },
+      ],
+    };
+
+    // Realiza la búsqueda en la base de datos
+    const alliances = await Alliance.find(filter).limit(limit);
+
+    // Devuelve los resultados
+    res.status(200).json(alliances);
+  } catch (error) {
+    console.error("Error en la búsqueda:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};

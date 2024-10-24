@@ -6,6 +6,7 @@ import {
   updateAlliance,
   deleteAlliance,
   getAlliancesOutstanding,
+  searchAlliances,
 } from "../controllers/alliance.js";
 
 import { validateAlliance } from "../validators/validateAlliance.js";
@@ -32,6 +33,9 @@ router.get("/", getAlliances);
 
 // Obtener todas las alianzas destacadas
 router.get("/outstanding", getAlliancesOutstanding);
+
+// Buscador de alianzas
+router.get("/search", searchAlliances);
 
 // Obtener una alianza por ID
 router.get("/:id", getAllianceById);
