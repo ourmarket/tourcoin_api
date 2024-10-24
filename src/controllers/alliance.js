@@ -77,6 +77,10 @@ export const getAlliances = async (req, res) => {
       const alliances = await Alliance.find();
       return res.status(200).json(alliances);
     }
+    if (category === "accept_TRC") {
+      const alliances = await Alliance.find({ accept_TRC: true });
+      return res.status(200).json(alliances);
+    }
     if (category !== "all") {
       const alliances = await Alliance.find({ category: category });
       return res.status(200).json(alliances);
