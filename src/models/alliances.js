@@ -49,6 +49,9 @@ const AllianceSchema = new Schema(
     outstanding: { type: Boolean, default: false },
     accept_TRC: { type: Boolean },
     wallet: { type: String },
+    city: { type: String },
+    province: { type: String },
+    country: { type: String },
     state: { type: Boolean, default: true },
   },
   {
